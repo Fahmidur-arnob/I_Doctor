@@ -8,7 +8,7 @@ const AppointmentBanner = () => {
     const [selectedDate, setSelectedDate] = useState(new Date());
 
     return (
-        <header className='my-6 mb-64'>
+        <header className='my-6'>
             <div className="hero" style={{
             background: `url(${appointment})`,
             backgroundRepeat: `no-repeat`,
