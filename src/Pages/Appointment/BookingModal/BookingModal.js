@@ -1,7 +1,6 @@
 import React from 'react';
 import { format } from 'date-fns';
-import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { toast } from 'react-hot-toast';
 
 const BookingModal = ({ treatment, setTreatment, selectedDate }) => {
     const { name, slots } = treatment;
@@ -14,7 +13,6 @@ const BookingModal = ({ treatment, setTreatment, selectedDate }) => {
         const email = form.email.value;
         const slot = form.slot.value;
         const phone = form.phone.value;
-
         const booking = {
             appointmentDate: date,
             treatment: name,
@@ -26,16 +24,7 @@ const BookingModal = ({ treatment, setTreatment, selectedDate }) => {
 
         console.log(booking);
         setTreatment(null);
-        toast.success("Booking Confirmed", {
-            position: "top-center",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "dark",
-        });
+        toast.success("Booking Confirmed");
     }
 
     return (

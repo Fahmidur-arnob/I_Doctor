@@ -2,8 +2,7 @@ import React from 'react';
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link } from 'react-router-dom';
-import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { toast } from 'react-hot-toast';
 
 const Login = () => {
     const { register, formState: { errors }, handleSubmit } = useForm();
@@ -29,11 +28,10 @@ const Login = () => {
                             type="text"
                             className="input input-bordered w-full max-w-xs"
                             {...register("email", {
-                                required: "Email Address is REQUIRED"
+                                required: "Email is REQUIRED"
                             })}
                         />
                         {errors.email && <p className='text-rose-700 font-semibold'>{errors.email?.message}</p>}
-
                     </div>
 
                     <div className="form-control w-full max-w-xs">
@@ -46,11 +44,11 @@ const Login = () => {
                             name='password'
                             className="input input-bordered w-full max-w-xs"
                             {...register("password", {
-                                required: "Password is REQUIRED"
+                                required: "Password is REQUIRED",
+                                min: 6,
                             })}
                         />
                         {errors.password && <p className='text-rose-700 font-semibold'>{errors.password?.message}</p>}
-
                         <label className="label mb-7">
                             <span className="label-text-alt font-semibold">Forgot Password?</span>
                         </label>
