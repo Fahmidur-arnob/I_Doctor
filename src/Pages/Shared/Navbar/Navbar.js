@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 const Navbar = () => {
     const menuItems = <React.Fragment>
-        <li><Link className='bg-gradient-to-r from-accent to-neutral text-white rounded-xl' to='/'>Home</Link></li>
+        <li><Link className='bg-gradient-to-r from-cyan-200 to-cyan-200 text-accent rounded-xl' to='/'>Home</Link></li>
         <li><Link className='rounded-xl' to='/appointment'>Appointment</Link></li>
         <li><Link className='rounded-xl' to='/about'>About</Link></li>
         <li><Link className='rounded-xl' to='/reviews'>Reviews</Link></li>
