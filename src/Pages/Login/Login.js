@@ -2,13 +2,14 @@ import React from 'react';
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Login = () => {
-
-    const { register, handleSubmit } = useForm();
+    const { register, formState: { errors }, handleSubmit } = useForm();
     const [data, setData] = useState('');
 
-    const handleLogin = data =>{
+    const handleLogin = data => {
         console.log(data);
     }
 
@@ -16,7 +17,7 @@ const Login = () => {
         <div className='h-[800px] flex justify-center items-center'>
             <div className='shadow-2xl m-4 p-7 rounded-2xl w-96'>
                 <h1 className='text-5xl text-accent text-center'>Login</h1>
-                <div className="divider mt-2 mb-10"></div> 
+                <div className="divider mt-2 mb-10"></div>
                 <form onSubmit={handleSubmit(handleLogin)}>
 
                     <div className="form-control w-full max-w-xs mb-3">
@@ -24,7 +25,15 @@ const Login = () => {
                             <span className="label-textv font-bold">Email</span>
                         </label>
 
-                        <input type="email" name='email' className="input input-bordered w-full max-w-xs" {...register("email")} required />
+                        <input
+                            type="text"
+                            className="input input-bordered w-full max-w-xs"
+                            {...register("email", {
+                                required: "Email Address is REQUIRED"
+                            })}
+                        />
+                        {errors.email && <p className='text-rose-700 font-semibold'>{errors.email?.message}</p>}
+
                     </div>
 
                     <div className="form-control w-full max-w-xs">
@@ -32,7 +41,15 @@ const Login = () => {
                             <span className="label-textv font-bold">Password</span>
                         </label>
 
-                        <input type="password" name='password' className="input input-bordered w-full max-w-xs" {...register("password")} required/>
+                        <input
+                            type="password"
+                            name='password'
+                            className="input input-bordered w-full max-w-xs"
+                            {...register("password", {
+                                required: "Password is REQUIRED"
+                            })}
+                        />
+                        {errors.password && <p className='text-rose-700 font-semibold'>{errors.password?.message}</p>}
 
                         <label className="label mb-7">
                             <span className="label-text-alt font-semibold">Forgot Password?</span>
