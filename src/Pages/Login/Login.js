@@ -45,7 +45,10 @@ const Login = () => {
                             className="input input-bordered w-full max-w-xs"
                             {...register("password", {
                                 required: "Password is REQUIRED",
-                                min: 6,
+                                minLength: {
+                                    value: 6,
+                                    message:"Password Must be 6 Characters or Longer."
+                                },
                             })}
                         />
                         {errors.password && <p className='text-rose-700 font-semibold'>{errors.password?.message}</p>}
