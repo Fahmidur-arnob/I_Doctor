@@ -1,9 +1,43 @@
 import React from 'react';
 import { format } from 'date-fns';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
-const BookingModal = ({ treatment, selectedDate }) => {
+const BookingModal = ({ treatment, setTreatment, selectedDate }) => {
     const { name, slots } = treatment;
     const date = format(selectedDate, 'PP');
+
+    const handleBooking = event => {
+        event.preventDefault();
+        const form = event.target;
+        const name = form.name.value;
+        const email = form.email.value;
+        const slot = form.slot.value;
+        const phone = form.phone.value;
+
+        const booking = {
+            appointmentDate: date,
+            treatment: name,
+            patientName: name,
+            slot,
+            email,
+            phone,
+        }
+
+        console.log(booking);
+        setTreatment(null);
+        toast.success("Booking Confirmed", {
+            position: "top-center",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "dark",
+        });
+    }
+
     return (
         <>
             <input type="checkbox" id="booking-modal" className="modal-toggle" />
@@ -11,18 +45,21 @@ const BookingModal = ({ treatment, selectedDate }) => {
                 <div className="modal-box relative">
                     <label htmlFor="booking-modal" className="btn btn-sm btn-circle absolute right-2 top-2">✕</label>
                     <h3 className="text-lg font-bold">{name}</h3>
-                    <form className='grid grid-cols-1 gap-3 mt-10'>
+                    <form onSubmit={handleBooking} className='grid grid-cols-1 gap-3 mt-10'>
                         <input type="text" disabled value={date} className="input input-bordered w-full " />
 
-                        <select className="select select-bordered w-full">
+                        <select name='slot' className="select select-bordered w-full">
                             {
-                                slots.map(slot => <option value={slot}>{slot}</option>)
+                                slots.map((slot, i) => <option
+                                    value={slot}
+                                    key={i}
+                                >{slot}</option>)
                             }
                         </select>
 
-                        <input type="text" value="" className="input input-bordered w-full " />
-                        <input type="text" value="" className="input input-bordered w-full " />
-                        <input type="text" value="" className="input input-bordered w-full " />
+                        <input name='name' type="text" placeholder='Your Name...' className="input input-bordered w-full " />
+                        <input name='email' type="email" placeholder='Email Address...' className="input input-bordered w-full " />
+                        <input name='phone' type="text" placeholder='Your Phone Number' className="input input-bordered w-full " />
                         <br />
                         <input type="submit" value="Submit" className='w-full btn btn-neutral' />
                     </form>
