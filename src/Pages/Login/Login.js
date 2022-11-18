@@ -1,15 +1,26 @@
-import React from 'react';
-import { useState } from "react";
+import React, { useContext, useState } from 'react';
 import { useForm } from "react-hook-form";
 import { Link } from 'react-router-dom';
-import { toast } from 'react-hot-toast';
+import { AuthContext } from '../../contexts/AuthProvider';
 
 const Login = () => {
     const { register, formState: { errors }, handleSubmit } = useForm();
-    const [data, setData] = useState('');
+    const { signIn } = useContext(AuthContext);
+    const [loginError, setLoginErorr] = useState('');
 
     const handleLogin = data => {
         console.log("Data is: ", data);//data is an object here;
+        setLoginErorr('');//error ta clear kore fellam jate error khawar por jokhon submit kormu tokhon jodi abr error khai jate notun error ta show koraite pare
+
+        signIn(data.email, data.password)
+            .then(res => {
+                const user = res.user;
+                console.log(user);
+            })
+            .catch(error => {
+                console.log(error.message);
+                setLoginErorr(error.message);
+            });
     }
 
     return (
@@ -32,7 +43,7 @@ const Login = () => {
                             })}
                         />
                         {errors.email && <p className='text-rose-700 font-semibold'>{errors.email?.message}</p>}
-                        
+
                     </div>
 
                     <div className="form-control w-full max-w-xs">
@@ -48,18 +59,24 @@ const Login = () => {
                                 required: "Password is REQUIRED",
                                 minLength: {
                                     value: 6,
-                                    message:"Password Must be 6 Characters or Longer."
+                                    message: "Password Must be 6 Characters or Longer."
                                 },
                             })}
                         />
                         {errors.password && <p className='text-rose-700 font-semibold'>{errors.password?.message}</p>}
-                        
+
                         <label className="label mb-7">
                             <span className="label-text-alt font-semibold">Forgot Password?</span>
                         </label>
                     </div>
 
                     <input type="submit" value="Login" className='btn btn-primary bg-gradient-to-r from-primary to-secondary w-full' />
+
+                    <div>
+                        {
+                            loginError && <h1 className='text-fuchsia-800 font-semibold text-xl'>{loginError}</h1>
+                        }
+                    </div>
                 </form>
                 <p className='mt-5'>New to Doctor's Portal? <Link to='/signup' className='text-secondary font-semibold'>Create New Account</Link></p>
 

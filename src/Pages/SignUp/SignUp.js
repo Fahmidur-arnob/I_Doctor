@@ -1,13 +1,23 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
+import { AuthContext } from '../../contexts/AuthProvider';
 
 const SignUp = () => {
-    const{ register, handleSubmit, formState: { errors } } = useForm('');
+    const { register, handleSubmit, formState: { errors } } = useForm('');
+    const { createUser } = useContext(AuthContext);
 
-    const handleSignUp = (data) =>{
+    //password auth;
+    const handleSignUp = (data) => {
         console.log("Sign Up Data: ", data);
-        
+
+        createUser(data.email, data.password)
+            .then(res => {
+                const user = res.user;
+                console.log(user);
+            })
+            .catch(error => console.log(error));
+
     }
 
     return (
@@ -59,16 +69,16 @@ const SignUp = () => {
                                 required: "Password is REQUIRED",
                                 minLength: {
                                     value: 6,
-                                    message:"Password Must be 6 Characters or Longer."
+                                    message: "Password Must be 6 Characters or Longer."
                                 },
                                 pattern: {
                                     value: /(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])(?=.*[a-z])/,
-                                    message:"Password must be strong.",
+                                    message: "Password must contain atleast one uppercase letter, one number and one special character and in total 6 characters or more.",
                                 }
                             })}
                         />
                         {errors.password && <p className='text-amber-800 font-semibold'>{errors.password?.message}</p>}
-                        
+
                     </div>
 
                     <input type="submit" value="Login" className='btn btn-primary bg-gradient-to-r from-primary to-secondary w-full mt-8' />
