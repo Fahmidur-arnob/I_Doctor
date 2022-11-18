@@ -9,7 +9,7 @@ const Login = () => {
     const [data, setData] = useState('');
 
     const handleLogin = data => {
-        console.log(data);
+        console.log("Data is: ", data);//data is an object here;
     }
 
     return (
@@ -21,7 +21,7 @@ const Login = () => {
 
                     <div className="form-control w-full max-w-xs mb-3">
                         <label className="label">
-                            <span className="label-textv font-bold">Email</span>
+                            <span className="label-text font-bold">Email</span>
                         </label>
 
                         <input
@@ -32,11 +32,12 @@ const Login = () => {
                             })}
                         />
                         {errors.email && <p className='text-rose-700 font-semibold'>{errors.email?.message}</p>}
+                        
                     </div>
 
                     <div className="form-control w-full max-w-xs">
                         <label className="label">
-                            <span className="label-textv font-bold">Password</span>
+                            <span className="label-text font-bold">Password</span>
                         </label>
 
                         <input
@@ -52,6 +53,7 @@ const Login = () => {
                             })}
                         />
                         {errors.password && <p className='text-rose-700 font-semibold'>{errors.password?.message}</p>}
+                        
                         <label className="label mb-7">
                             <span className="label-text-alt font-semibold">Forgot Password?</span>
                         </label>
