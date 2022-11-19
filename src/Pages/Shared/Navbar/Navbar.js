@@ -4,24 +4,29 @@ import { AuthContext } from '../../../contexts/AuthProvider';
 
 const Navbar = () => {
     const { user, logOut } = useContext(AuthContext);
-    const handleLogOut = () =>{
+    const handleLogOut = () => {
         logOut()
-        .then(() =>{})
-        .catch(error =>console.log(error));
+            .then(() => { })
+            .catch(error => console.log(error));
     }
     const menuItems = <React.Fragment>
-        <li><Link className='bg-gradient-to-r from-cyan-200 to-cyan-200 text-accent rounded-xl' to='/'>Home</Link></li>
-        <li><Link className='rounded-xl' to='/appointment'>Appointment</Link></li>
-        <li><Link className='rounded-xl' to='/about'>About</Link></li>
-        <li><Link className='rounded-xl' to='/reviews'>Reviews</Link></li>
+        <li><Link className='bg-gradient-to-r from-cyan-200 to-cyan-200 text-accent rounded-xl font-semibold' to='/'>Home</Link></li>
+        <li><Link className='rounded-xl font-semibold' to='/appointment'>Appointment</Link></li>
+        <li><Link className='rounded-xl font-semibold' to='/about'>About</Link></li>
+        <li><Link className='rounded-xl font-semibold' to='/reviews'>Reviews</Link></li>
         {
             user?.uid
                 ?
-                <li>
-                    <button className='rounded-xl' onClick={handleLogOut}>
-                        Sign Out
-                    </button>
-                </li>
+                <>
+                    <li>
+                        <Link className='rounded-xl font-semibold' to='/dashboard'>Dashboard</Link>
+                    </li>
+                    <li>
+                        <button className='rounded-xl font-semibold' onClick={handleLogOut}>
+                            Sign Out
+                        </button>
+                    </li>
+                </>
                 :
                 <li>
                     <Link className='rounded-xl' to='/login'>
@@ -41,7 +46,7 @@ const Navbar = () => {
                         {menuItems}
                     </ul>
                 </div>
-                <Link to='/' className="btn btn-ghost normal-case text-xl">Doctor's Portal</Link>
+                <Link to='/' className="btn btn-ghost normal-case text-2xl font-bold">Doctor's Portal</Link>
             </div>
             <div className="navbar-center hidden lg:flex">
                 <ul className="menu menu-horizontal p-0">
